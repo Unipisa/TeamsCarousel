@@ -1,0 +1,27 @@
+{
+    "name": "Teams Carousel",
+    "version": "0.1",
+    "description": "Do you want carousel videos from a Teams call?",
+    "permissions": ["activeTab", "declarativeContent", "storage"],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+      },
+    "options_page": "options.html",
+    "page_action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "images/TeamsCarouselLogo16.png",
+        "32": "images/TeamsCarouselLogo32.png",
+        "48": "images/TeamsCarouselLogo48.png",
+        "128": "images/TeamsCarouselLogo128.png"
+      }
+    },
+    "icons": {
+        "16": "images/TeamsCarouselLogo16.png",
+        "32": "images/TeamsCarouselLogo32.png",
+        "48": "images/TeamsCarouselLogo48.png",
+        "128": "images/TeamsCarouselLogo128.png"
+      },
+    "manifest_version": 2
+}
