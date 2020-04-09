@@ -1,0 +1,10 @@
+Per installare l'estensione manualmente procedere come segue:
+
+- Scompattare il file zip in una cartella nel computer
+- in un tab Chrome navigare a chrome://extensions
+- abilitare la "Modalità sviluppatore" selezionando il controllo in alto a destra
+- selezionare l'operazione "Carica estensione non pacchettizzata"
+
+Una volta attivata l'estensione:
+
+- in una call premere l'icona dello strumento e play
