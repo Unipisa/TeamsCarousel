@@ -1,6 +1,7 @@
 # TeamsCarousel
 
 > Quick start guide in [english](packages/quickstart-en.md)
+
 > Guida rapida in [italiano](packages/quickstart-it.md)
 
 This Chrome (and Edge Chromium) extension is designed to cycle among the participants of a Microsoft Teams call. It is a hack and therefore instable, mostly needed to support the Italian Universities to monitor written exams during COVID-19 distance learning.
@@ -11,13 +12,13 @@ It is known that Microsoft is working on a 3x3 grid view for the Microsoft Teams
 
 The extension is shown on the right of the address bar
 
-![Image][img/img1.png]
+![Image](img/img1.png)
 
 It will be enabled only when browsing the Web site https://teams.microsoft.com
 
 During a call click on the icon to get the following menu:
 
-![Image][img/img2.png]
+![Image](img/img2.png)
 
 Press play to start the carousel. You can change the interval duration at any time by changing the number of seconds in the menu. More options to come in the future.
 
