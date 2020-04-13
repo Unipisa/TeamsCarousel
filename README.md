@@ -31,3 +31,5 @@ The *suggested* use is to connect to a Microsoft Teams call with the native clie
 
 ## Installation
 As of today Google Chrome store is not accepting extension submissions (it fails by returning internal server error). The only way to use the plugin is by installing it manually. I plan to fix the situation as soon as Google will reopen submissions.
+
+On the contrary, Microsoft store allowed me to submit now I'm waiting for the review (it was quick so I hope they will pass it)

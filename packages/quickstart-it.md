@@ -1,5 +1,7 @@
 # Installare l'estensione TeamsCarousel su Google Chrome o su Microsoft Edge (Chromium)
 
+> Nota: ho sottomesso l'estensione allo store Microsoft per Edge (Chromium)
+
 Google non consente il caricamente di nuove estensioni Chrome sulla dashboard sviluppatori. Inoltre, non è più consentito il caricamento manuale di pacchetti estensione (file in formato CRX) per ovvi motivi di sicurezza. Fino a quando non sarà possibile caricare nel Google Chrome Store l'estensione è necessario utilizzare la modalità sviluppatore per forzare il caricamento dell'estensione dal proprio computer. Procedere come segue:    
 
 1. Scaricare il file zip [TeamsCarousel.zip](https://github.com/Unipisa/TeamsCarousel/raw/master/packages/TeamsCarousel.zip) contenente i sorgenti dell'estensione e scompattarlo in una cartella del proprio computer
