@@ -14,14 +14,16 @@
         "16": "images/TeamsCarouselLogo16.png",
         "32": "images/TeamsCarouselLogo32.png",
         "48": "images/TeamsCarouselLogo48.png",
-        "128": "images/TeamsCarouselLogo128.png"
+        "128": "images/TeamsCarouselLogo128.png",
+        "300": "images/TeamsCarouselLogo300.png"
       }
     },
     "icons": {
         "16": "images/TeamsCarouselLogo16.png",
         "32": "images/TeamsCarouselLogo32.png",
         "48": "images/TeamsCarouselLogo48.png",
-        "128": "images/TeamsCarouselLogo128.png"
+        "128": "images/TeamsCarouselLogo128.png",
+        "300": "images/TeamsCarouselLogo300.png"
       },
     "manifest_version": 2
 }
