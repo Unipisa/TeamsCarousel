@@ -11,10 +11,15 @@
     </style>
   </head>
   <body>
+    <div id="runningPanel">
     <div id="controlButton"></div>
+    <div id="configuration">
     Intervallo <input id="duration" type="number" min="4" max="600"></input> secondi'
-    <div id="reset">
-      reset
+    </div>
+    <div id="reset">reset</div>
+    </div>
+    <div id="notInCallPanel" style="display: none;">
+      Funzione disponibile solo quando in call.
     </div>
     <script src="popup.js"></script>
   </body>
