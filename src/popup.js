@@ -279,6 +279,27 @@ function readBreakoutPart(c) {
   exec("tc.breakoutPart", c)
 }
 
+var labels =
+  {
+    'it': {
+      'interval-txt-lbl': 'Intervallo',
+      'interval-sec-lbl': 'secondi',
+      'mute-lbl': 'Muto',
+      'breakout-lbl': 'Breakout',
+      'notincall-lbl': 'Funzione disponibile durante le chiamate di Microsoft Teams.'
+    }
+  }
+
+function localize() {
+  for (var i = 0; i < navigator.languages.length; i++) {
+    if (navigator.languages[i].toLowerCase().startsWith('it')) {
+      for (var l in labels['it']) {
+        document.getElementById(l).innerText = labels['it'][l]
+      }
+    }
+  }
+}
+
 function updateMutedTab() {
   chrome.tabs.query({ active: true }, (t) =>{
     if (t[0].mutedInfo.muted) {
@@ -322,6 +343,8 @@ function setInCallPanel() {
       notInCallPanel.style.display = ''
     })
 }
+
+localize()
 
 checkInit(function () {
     readInterval(function (i) {

@@ -20,16 +20,16 @@
     <div id="runningPanel">
     <div id="controlButton"></div>
     <div id="configuration">
-    Intervallo <input id="duration" type="number" min="4" max="600"></input> secondi'
+    <span id="interval-txt-lbl">Interval</span> <input id="duration" type="number" min="4" max="600"></input> <span id="interval-sec-lbl">seconds</span>'
     <br/>
-    <input type="checkbox" id="mutedTab"> Mute
+    <input type="checkbox" id="mutedTab"> <span id="mute-lbl">Mute</span>
     <br/>
-    Breakout <input id="breakn" type="number" min="1" max="1" value="1"></input>&nbsp;/&nbsp;<input id="breakMax" type="number" min="1" max="100" value="1"></input>
+    <span id="breakout-lbl">Breakout</span> <input id="breakn" type="number" min="1" max="1" value="1"></input>&nbsp;/&nbsp;<input id="breakMax" type="number" min="1" max="100" value="1"></input>
     </div>
     <div id="reset">reset</div>
     </div>
-    <div id="notInCallPanel" style="display: none;">
-      Funzione disponibile solo quando in call.
+    <div id="notInCallPanel" style="display: none; margin-top: 32px;">
+      <span id="notincall-lbl">Available only during Microsoft Teams calls.</span>
     </div>
     <script src="popup.js"></script>
   </body>
