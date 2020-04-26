@@ -10,7 +10,8 @@ let runningPanel = document.getElementById('runningPanel')
 let notInCallPanel = document.getElementById('notInCallPanel')
 let reset = document.getElementById('reset')
 let mutedTab = document.getElementById('mutedTab')
-
+let breakn = document.getElementById('breakn')
+let breakMax = document.getElementById('breakMax')
 
 let initCode = `
 
@@ -21,6 +22,16 @@ var checkList = new Array()
 
 function queue(t, a) {
   checkList.push({ test: t, action: a});
+}
+
+function breakout(id, mod) {
+  var n = 0
+  for (var i = 0; i < id.length; i++) {
+    n += (id.charCodeAt(i) * 19) % 256
+    n = n % mod
+  }
+  console.log("id: " + id + ", val: " + n)
+  return n
 }
 
 if (!document.teamscarousel) {
@@ -44,7 +55,7 @@ if (!document.teamscarousel) {
       characterData: false 
     });
 
-    tc = { interval: 4000, pinned: null }
+    tc = { interval: 4000, breakoutPart: 1, breakoutNum: 1 }
     document.teamscarousel = tc;
     
     tc.isInCall = function () {
@@ -93,7 +104,8 @@ if (!document.teamscarousel) {
             for (var j = 0; j < l.length; j++) {
               if (l[j].id.startsWith('participant')) {
                 var n = l[j].getElementsByClassName('name')[0].innerText
-                ret.push({name: n, target: l[j], 
+                var b = l[j].id
+                ret.push({name: n, target: l[j], breakout: breakout(b, tc.breakoutNum),
                   showMenu: function () { 
                     this.target.getElementsByClassName('participant-menu')[0].firstElementChild.firstElementChild.click() 
                   },
@@ -159,6 +171,25 @@ if (!document.teamscarousel) {
       tc.next = 1;
     }
 
+    tc.moveNext = function () {
+      tc.last = tc.next
+      if (tc.breakoutNum == 1) {
+        tc.next = (tc.next + 1);
+        if (tc.next == tc.ol.length) tc.next = 1
+      } else {
+        do {
+          tc.next = (tc.next + 1);
+          if (tc.next == tc.ol.length) tc.next = 1
+          if (tc.ol[tc.next].breakout == (tc.breakoutPart - 1)) {
+            console.log("Next: " + tc.next)
+            return;
+          }
+        } while (tc.last != tc.next)
+        alert("La partizione è vuota")
+        tc.stopCarousel()
+      }
+    }
+
     tc.startCarousel = function () {
       tc.updateList()
       tc.cycle = setInterval(function () {
@@ -176,9 +207,11 @@ if (!document.teamscarousel) {
           tc.ol[tc.next].pin();
         }
         setTimeout(function () {
-          tc.last = tc.next;
-          tc.next = (tc.next + 1);
-          if (tc.next == tc.ol.length) tc.next = 1 }, 600)
+//          tc.last = tc.next;
+//          tc.next = (tc.next + 1);
+//          if (tc.next == tc.ol.length) tc.next = 1
+          tc.moveNext()
+        }, 600)
         }, tc.interval)
     }
 
@@ -238,6 +271,14 @@ function readInterval(c) {
   exec("tc.interval", c)
 }
 
+function readBreakoutNum(c) {
+  exec("tc.breakoutNum", c)
+}
+
+function readBreakoutPart(c) {
+  exec("tc.breakoutPart", c)
+}
+
 function updateMutedTab() {
   chrome.tabs.query({ active: true }, (t) =>{
     if (t[0].mutedInfo.muted) {
@@ -289,6 +330,8 @@ checkInit(function () {
         duration.value = n
       }
     })
+    readBreakoutNum( (n) => { breakMax.value = n } )
+    readBreakoutPart( (n) => { breakn.value = n })
     updateMutedTab()
     setIcon()
     setInCallPanel()
@@ -334,4 +377,14 @@ mutedTab.onchange = function (element) {
   } else {
     setMutedTab(false)
   }
+}
+
+breakMax.onchange = function (element) {
+  if (parseInt(breakn.value) > parseInt(breakMax.value)) breakn.value = "1"
+  breakn.max = breakMax.value
+  exec("tc.breakoutNum = " + breakMax.value + "; tc.updateList()")
+}
+
+breakn.onchange = function (element) {
+  exec("tc.breakoutPart = " + breakn.value)
 }
