@@ -9,6 +9,7 @@ let conf = document.getElementById('configuration')
 let runningPanel = document.getElementById('runningPanel')
 let notInCallPanel = document.getElementById('notInCallPanel')
 let reset = document.getElementById('reset')
+let mutedTab = document.getElementById('mutedTab')
 
 
 let initCode = `
@@ -237,6 +238,22 @@ function readInterval(c) {
   exec("tc.interval", c)
 }
 
+function updateMutedTab() {
+  chrome.tabs.query({ active: true }, (t) =>{
+    if (t[0].mutedInfo.muted) {
+      mutedTab.checked = true
+    } else {
+      mutedTab.checked = false
+    }
+  })
+}
+
+function setMutedTab(mute) {
+  chrome.tabs.query({ active: true }, (t) =>{
+    chrome.tabs.update(t[0].id, {muted: mute})
+  })
+}
+
 function setIcon() {
   checkRunning(
     () => { setPauseIcon() },
@@ -272,7 +289,7 @@ checkInit(function () {
         duration.value = n
       }
     })
-
+    updateMutedTab()
     setIcon()
     setInCallPanel()
   }, function () {
@@ -283,7 +300,7 @@ checkInit(function () {
         duration.value = n
       }
     })
-    
+    updateMutedTab()
     setIcon()
     setInCallPanel()
   })
@@ -309,4 +326,12 @@ duration.onchange = function(element) {
 reset.onclick = function (element) {
   exec("if (tc.isRunning()) { tc.stopCarousel()}; document.teamscarousel = null; tc = null")
   window.close()
+}
+
+mutedTab.onchange = function (element) {
+  if (mutedTab.checked) {
+    setMutedTab(true)
+  } else {
+    setMutedTab(false)
+  }
 }
