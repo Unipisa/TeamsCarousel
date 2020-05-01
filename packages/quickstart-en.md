@@ -1,4 +1,8 @@
-# Installing TeamsCarousel Chrome/Edge extension
+# Installing *Teams Carousel* extension for Microsoft Edge
+
+It is necessary to run the latest [Microsoft Edge](https://www.microsoft.com/edge) version for PC or Mac. Go to the extension store page [Teams Carousel](https://microsoftedge.microsoft.com/addons/detail/oaoljfeoolhboidooldgbnefaeicneml) and install the extension.
+
+# Installing *Teams Carousel* Chrome extension
 
 > Note: I submitted the extension to the Microsoft store (that is working...)
 
@@ -25,8 +29,12 @@ During a call click on the icon to get the following menu:
 
 ![Image](https://github.com/Unipisa/TeamsCarousel/raw/master/img/img2.png)
 
-Press play to start the carousel. You can change the interval duration at any time by changing the number of seconds in the menu. More options to come in the future.
+Press play to start the carousel. You can change the interval duration at any time by changing the number of seconds in the menu. 
 
-## upgrade the extension
+Use the *Mute* option allows easily muting the tab to avoid interference if connected to the meeting also with the native client and the browser is only used to monitor participants.
+
+It is possible to split monitoring among different participants using the *breakout* function and setting the number the portion and the total number of portions. This way it will be possible to split participant monitoring in a call. 
+
+## Upgrade the extension
 
 Simply unzip the files in the directory of the extension and tap reload in the browser extensions page.
