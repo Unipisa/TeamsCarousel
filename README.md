@@ -4,6 +4,8 @@
 
 > Guida rapida in [Italiano](packages/quickstart-it.md)
 
+*Update May, 1st 2020:* The extension is now available for Microsoft Edge on the [store](https://microsoftedge.microsoft.com/addons/detail/oaoljfeoolhboidooldgbnefaeicneml). The new version of Teams carousel supports easy tab muting and breakout checks. Now you can specify controller n out m and monitor only a subset of the connected participants.
+
 This Chrome (and Edge Chromium) extension is designed to cycle among the participants of a Microsoft Teams call. It is a hack and therefore unstable, mostly needed to support the Italian Universities to monitor written exams during COVID-19 distance learning.
 
 It is known that Microsoft is working on a 3x3 grid view for the Microsoft Teams client, but for this specific use case is to be preferred to iterate among call participants from a Web browser.
@@ -12,13 +14,13 @@ It is known that Microsoft is working on a 3x3 grid view for the Microsoft Teams
 
 The extension is shown on the right of the address bar
 
-![Image](img/img1.png)
+![Image](https://github.com/Unipisa/TeamsCarousel/raw/master/img/img1.png)
 
 It will be enabled only when browsing the Web site https://teams.microsoft.com
 
 During a call click on the icon to get the following menu:
 
-![Image](img/img2.png)
+![Image](https://github.com/Unipisa/TeamsCarousel/raw/master/img/img2.png)
 
 Press play to start the carousel. You can change the interval duration at any time by changing the number of seconds in the menu. More options to come in the future.
 
@@ -32,4 +34,4 @@ The *suggested* use is to connect to a Microsoft Teams call with the native clie
 ## Installation
 As of today, Google Chrome store is not accepting extension submissions (it fails by returning internal server error). The only way to use the plugin is by installing it manually. I plan to fix the situation as soon as Google will reopen submissions.
 
-On the contrary, Microsoft store allowed me to submit now I'm waiting for the review (it was quick so I hope they will pass it)
+If you are using the new [Microsoft Edge](https://www.microsoft.com/edge) (Windows or Mac) based on Chromium you can easily install the extension [here](https://microsoftedge.microsoft.com/addons/detail/oaoljfeoolhboidooldgbnefaeicneml)
