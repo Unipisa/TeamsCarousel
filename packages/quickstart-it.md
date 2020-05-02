@@ -1,6 +1,6 @@
 # Installare l'estensione *Teams Carousel* su Microsoft Edge
 
-È necessario avere l'ultima versione di [Microsoft Edge](https://www.microsoft.com/edge). Accedere alla di [Teams Carousel](https://microsoftedge.microsoft.com/addons/detail/oaoljfeoolhboidooldgbnefaeicneml) pagina dello store delle estensioni per Edge, e premere *Ottieni*.
+È necessario avere l'ultima versione di [Microsoft Edge](https://www.microsoft.com/edge). Accedere alla pagina di [Teams Carousel](https://microsoftedge.microsoft.com/addons/detail/oaoljfeoolhboidooldgbnefaeicneml) nello store delle estensioni per Edge, e premere *Ottieni*.
 
 # Installare l'estensione Teams Carousel su Google Chrome
 
