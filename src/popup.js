@@ -111,7 +111,7 @@ if (!document.teamscarousel) {
                   },
                   pin: function() {
                     this.showMenu()
-                    queue(() => { 
+                    queue(() => {
                             if (document.getElementsByClassName('pin-participant-action')) {
                               return true
                             } else {
@@ -162,7 +162,11 @@ if (!document.teamscarousel) {
     }
 
     tc.switchPin = function (el1, el2) {
-      tc.ol[el1].pin()
+      var pin = document.getElementsByClassName('pin-icon-filled')
+      if (pin.length) {
+        pin[0].click()
+      }
+      //tc.ol[el1].pin()
       setTimeout(() => { tc.ol[el2].pin() }, 300)
     }
 
