@@ -4,6 +4,8 @@
 
 > Guida rapida in [Italiano](packages/quickstart-it.md)
 
+*Important notice:* the recent update of teams UI has broken few assumptions of the carousel, I'm working hard to fix the issues
+
 *Update May, 1st 2020:* The extension is now available for Microsoft Edge on the [store](https://microsoftedge.microsoft.com/addons/detail/oaoljfeoolhboidooldgbnefaeicneml). The new version of Teams carousel supports easy tab muting and breakout checks. Now you can specify controller n out m and monitor only a subset of the connected participants.
 
 This Chrome (and Edge Chromium) extension is designed to cycle among the participants of a Microsoft Teams call. It is a hack and therefore unstable, mostly needed to support the Italian Universities to monitor written exams during COVID-19 distance learning.
