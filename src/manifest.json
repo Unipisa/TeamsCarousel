@@ -1,6 +1,6 @@
 {
     "name": "Teams Carousel",
-    "version": "0.2",
+    "version": "0.3",
     "description": "Do you want carousel videos from a Teams call?",
     "permissions": ["activeTab", "declarativeContent", "storage"],
     "background": {

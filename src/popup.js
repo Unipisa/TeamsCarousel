@@ -24,16 +24,6 @@ function queue(t, a) {
   checkList.push({ test: t, action: a});
 }
 
-function breakout(id, mod) {
-  var n = 0
-  for (var i = 0; i < id.length; i++) {
-    n += (id.charCodeAt(i) * 19) % 256
-    n = n % mod
-  }
-  console.log("id: " + id + ", val: " + n)
-  return n
-}
-
 if (!document.teamscarousel) {
 
     obs = new MutationObserver(mutation => {
@@ -90,6 +80,41 @@ if (!document.teamscarousel) {
       }
     }
 
+    function Participant(sect, tgt, bid) {
+      return {
+        name: tgt.getElementsByClassName('name')[0].innerText, target: tgt, breakout: bid, section: sect,
+        isCaller: function () {
+          return this.breakout == 0
+        },
+        next: function () {
+          for (var el = this.target.nextElementSibling; el != null; el = el.nextElementSibling) {
+            if (el.id.startsWith('participant')) {
+              el.scrollIntoViewIfNeeded()
+              return Participant(this.section, el, this.breakout + 1)
+            }
+          }
+          return null;
+        },
+        showMenu: function () { 
+          this.target.getElementsByClassName('participant-menu')[0].firstElementChild.firstElementChild.click() 
+        },
+        pin: function() {
+          this.showMenu()
+          queue(() => {
+                  if (document.getElementsByClassName('pin-participant-action')) {
+                    return true
+                  } else {
+                    return false
+                  }
+                }, () => {
+                  if (document.getElementsByClassName('pin-participant-action')) {
+                    setTimeout(() => { document.getElementsByClassName('pin-participant-action')[0].click() }, 0)
+                  }
+                })  
+        }
+      }
+    }
+
     tc.rosterParticipants = function () {
       var part = document.getElementsByTagName('calling-roster-section')
       var ret = new Array();
@@ -98,35 +123,15 @@ if (!document.teamscarousel) {
         var tit = part[i].getAttribute('section-title')
         var desc = { 
           section: k, inCall: false, title: tit, target: part[i],
-          getParticipants: function () {
+          getParticipantsIterator: function() {
+            this.target.scrollIntoViewIfNeeded()
             var l = this.target.getElementsByTagName('li')
-            var ret = new Array()
             for (var j = 0; j < l.length; j++) {
               if (l[j].id.startsWith('participant')) {
-                var n = l[j].getElementsByClassName('name')[0].innerText
-                var b = l[j].id
-                ret.push({name: n, target: l[j], breakout: breakout(b, tc.breakoutNum),
-                  showMenu: function () { 
-                    this.target.getElementsByClassName('participant-menu')[0].firstElementChild.firstElementChild.click() 
-                  },
-                  pin: function() {
-                    this.showMenu()
-                    queue(() => {
-                            if (document.getElementsByClassName('pin-participant-action')) {
-                              return true
-                            } else {
-                              return false
-                            }
-                          }, () => {
-                            if (document.getElementsByClassName('pin-participant-action')) {
-                              setTimeout(() => { document.getElementsByClassName('pin-participant-action')[0].click() }, 0)
-                            }
-                          })  
-                  }
-                })
+                return Participant(this, l[j], 0)
               }
             }
-            return ret
+            return null
           }
         }
         if (k == 'participantsInCall' || k == 'attendeesInMeeting') { desc.inCall = true }
@@ -137,85 +142,81 @@ if (!document.teamscarousel) {
 
     tc.updateList = function () {
       if (!tc.isRosterVisible()) {
-        //console.log('Showing roster...')
         tc.showRoster()
         setTimeout(() => { tc.updateList() }, 300)
         return;
       }
-      //console.log('populating')
-      tc.ol = new Array()
+      if (document.getElementsByClassName('roster-list-more-people').length) {
+         document.getElementsByClassName('roster-list-more-people')[0].click()
+      }
+      
+      tc.current = null
+      tc.sectionsCalling = new Array()
+      tc.currSection = 0
 
       var ps = tc.rosterParticipants()
-      //console.log('ps ' + ps.length)
       for (var i = 0; i < ps.length; i++) {
         var p = ps[i]
         if (p.inCall) {
-          var ll = p.getParticipants()
-          //console.log(ll)
-          for (var j = 0; j < ll.length; j++) {
-            var part = ll[j]
-            //console.log(part)
-            tc.ol.push(part)
-          }
+          tc.sectionsCalling.push(p)
         }
       }
+
+      tc.current = tc.sectionsCalling[tc.currSection].getParticipantsIterator()
+      if (tc.current != null && tc.current.isCaller()) { tc.current = tc.current.next() }
     }
 
-    tc.switchPin = function (el1, el2) {
+    tc.switchToPin = function (el) {
       var pin = document.getElementsByClassName('pin-icon-filled')
       if (pin.length) {
         pin[0].click()
       }
-      //tc.ol[el1].pin()
-      setTimeout(() => { tc.ol[el2].pin() }, 300)
+      setTimeout(() => { el.pin() }, 300)
     }
 
     tc.init = function() {
-      tc.last = -1;
-      tc.next = 1;
+      tc.current = null
+    }
+
+    tc.moveOffset = function () {
+      for (var i = 0; i < tc.breakoutPart - 1; i++) {
+        tc.current = tc.current.next()
+        if (tc.current == null) {
+          return;
+        }
+      }
+    }
+
+    tc.moveNextItem = function () {
+      tc.current = tc.current.next()
+      if (tc.current != null) { return false }
+      while (!tc.current) {
+        tc.currSection = tc.currSection + 1
+        if (tc.sectionsCalling.length == tc.currSection) { tc.currSection = 0 }
+        tc.current = tc.sectionsCalling[tc.currSection].getParticipantsIterator()
+        if (tc.current != null && tc.current.isCaller()) { tc.current = tc.current.next() }
+        if (tc.current != null && tc.breakoutNum > 1) {
+          tc.moveOffset()
+        }
+      }
+      return true
     }
 
     tc.moveNext = function () {
-      tc.last = tc.next
       if (tc.breakoutNum == 1) {
-        tc.next = (tc.next + 1);
-        if (tc.next == tc.ol.length) tc.next = 1
+        tc.moveNextItem()
       } else {
-        do {
-          tc.next = (tc.next + 1);
-          if (tc.next == tc.ol.length) tc.next = 1
-          if (tc.ol[tc.next].breakout == (tc.breakoutPart - 1)) {
-            console.log("Next: " + tc.next)
-            return;
-          }
-        } while (tc.last != tc.next)
-        alert("La partizione è vuota")
-        tc.stopCarousel()
+        for (var i = 0; i < tc.breakoutNum; i++) {
+          if (tc.moveNextItem()) { break; }
+        }
       }
     }
 
     tc.startCarousel = function () {
       tc.updateList()
       tc.cycle = setInterval(function () {
-        var len = tc.ol.length
-        tc.updateList()
-        if (tc.ol.length != len) {
-          if (tc.next >= tc.ol.length) {
-            tc.next = 1
-            tc.last = -1
-          }
-        }
-        if (tc.last > 0) {
-          tc.switchPin(tc.last, tc.next)
-        } else {
-          tc.ol[tc.next].pin();
-        }
-        setTimeout(function () {
-//          tc.last = tc.next;
-//          tc.next = (tc.next + 1);
-//          if (tc.next == tc.ol.length) tc.next = 1
-          tc.moveNext()
-        }, 600)
+        tc.switchToPin(tc.current)
+        tc.moveNext()
         }, tc.interval)
     }
 
