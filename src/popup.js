@@ -123,6 +123,9 @@ if (!document.teamscarousel) {
         var tit = part[i].getAttribute('section-title')
         var desc = { 
           section: k, inCall: false, title: tit, target: part[i],
+          resetScroll: function () {
+            this.target.getElementsByClassName('scrollable')[0].scrollTo(0,0)
+          },
           getParticipantsIterator: function() {
             this.target.scrollIntoViewIfNeeded()
             var l = this.target.getElementsByTagName('li')
@@ -166,12 +169,12 @@ if (!document.teamscarousel) {
       if (tc.current != null && tc.current.isCaller()) { tc.current = tc.current.next() }
     }
 
-    tc.switchToPin = function (el) {
+    tc.switchToPin = function (el, g) {
       var pin = document.getElementsByClassName('pin-icon-filled')
       if (pin.length) {
         pin[0].click()
       }
-      setTimeout(() => { el.pin() }, 300)
+      setTimeout(() => { el.pin(); if (g) { setTimeout(() => { g(); }, 600) } }, 300)
     }
 
     tc.init = function() {
@@ -215,8 +218,8 @@ if (!document.teamscarousel) {
     tc.startCarousel = function () {
       tc.updateList()
       tc.cycle = setInterval(function () {
-        tc.switchToPin(tc.current)
-        tc.moveNext()
+        tc.switchToPin(tc.current, () => { if (tc.current.next() == null) { tc.sectionsCalling[tc.currSection].resetScroll() } })
+        setTimeout(() => { tc.moveNext() }, 900)
         }, tc.interval)
     }
 
