@@ -191,7 +191,9 @@ if (!document.teamscarousel) {
     }
 
     tc.moveNextItem = function () {
-      tc.current = tc.current.next()
+      if (tc.current != null) {
+        tc.current = tc.current.next()
+      }
       if (tc.current != null) { return false }
       while (!tc.current) {
         tc.currSection = tc.currSection + 1
@@ -218,7 +220,10 @@ if (!document.teamscarousel) {
     tc.startCarousel = function () {
       tc.updateList()
       tc.cycle = setInterval(function () {
-        tc.switchToPin(tc.current, () => { if (tc.current.next() == null) { tc.sectionsCalling[tc.currSection].resetScroll() } })
+        if (tc.current != null) {
+          tc.switchToPin(tc.current, () => { if (tc.current.next() == null) { tc.sectionsCalling[tc.currSection].resetScroll() } })
+        }
+      
         setTimeout(() => { tc.moveNext() }, 900)
         }, tc.interval)
     }
