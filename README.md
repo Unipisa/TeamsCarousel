@@ -4,7 +4,7 @@
 
 > Guida rapida in [Italiano](packages/quickstart-it.md)
 
-*Update May, 24th 2020:* I have just released a new version that should address the main stability issues. I will keep testing the extension for more bugs, but now it should not get stuck anymore. I have submitted the new version to the Microsoft store, but if you need to use the new version follow the instructions for Chrome also with Edge.
+*Update June, 4th 2020:* I have just released a new version that should address the main stability issues. I will keep testing the extension for more bugs, but now it should not get stuck anymore. 
 
 *Update May, 1st 2020:* The extension is now available for Microsoft Edge on the [store](https://microsoftedge.microsoft.com/addons/detail/oaoljfeoolhboidooldgbnefaeicneml). The new version of Teams carousel supports easy tab muting and breakout checks. Now you can specify controller n out m and monitor only a subset of the connected participants.
 
